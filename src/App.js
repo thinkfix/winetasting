@@ -1,6 +1,14 @@
+import { Typography } from 'antd';
+
+import './App.css';
+
+const {Title} = Typography
+
 function App() {
   return (
-    <h1>TEst</h1>
+    <Typography>
+      <Title>Test title</Title>
+    </Typography>
   );
 }
 

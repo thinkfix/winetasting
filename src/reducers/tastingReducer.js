@@ -1,4 +1,4 @@
-export default (state = [] ,action) => {
+const tastingReducer = (state = [] ,action) => {
     switch (action.type) {
         case 'CREATE_TASTING':
             return [...state, action.payload];
@@ -10,3 +10,5 @@ export default (state = [] ,action) => {
             return state;
     }
 }
+
+export default tastingReducer;

@@ -1,13 +1,13 @@
 import React from "react";
 
 import './App.css';
-import CreateTasting from "./CreateTasting";
+import TastingForm from "./TastingForm";
 import TastingList from "./TastingList";
 
 function App() {
     return (
         <>
-            <CreateTasting />
+            <TastingForm />
             <TastingList />
         </>
     );

@@ -5,6 +5,13 @@ export const createTasting = (tasting) => {
     }
 }
 
+export const editTasting = (id) => {
+    return {
+        type: 'EDIT_TASTING',
+        payload: id
+    }
+}
+
 export const deleteTasting = (id) => {
     return {
         type: 'DELETE_TASTING',

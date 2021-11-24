@@ -1,6 +1,6 @@
 import React from "react";
-import {connect} from "react-redux";
-import {deleteTasting} from "../actions";
+import { connect } from "react-redux";
+import { deleteTasting, editTasting } from "../actions";
 
 const TastingList = (props) => {
 
@@ -11,7 +11,7 @@ const TastingList = (props) => {
             <h3>{item.title}</h3>
             <p>{item.description}</p>
 
-            <span>Edit</span>
+            <span onClick={() => props.editTasting(item.id)}>Edit</span>
             <span onClick={() => props.deleteTasting(item.id)}>Delete</span>
         </li>
     });
@@ -29,4 +29,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {deleteTasting})(TastingList) ;
+export default connect(mapStateToProps, {deleteTasting, editTasting})(TastingList) ;

@@ -1,32 +1,27 @@
 import React from "react";
-import { connect } from "react-redux";
-import { deleteTasting, editTasting } from "../actions";
 
 const TastingList = (props) => {
 
-    const {tasting} = props;
+    const {list, editItem, deleteItem} = props;
 
-    const tastingList = tasting.map((item) => {
-        return <li key={item.id}>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
+    const tastingList = list.map((item) => {
+        return (
+            <li key={item.id}>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
 
-            <span onClick={() => props.editTasting(item.id)}>Edit</span>
-            <span onClick={() => props.deleteTasting(item.id)}>Delete</span>
-        </li>
-    });
-
+                <span onClick={() => editItem(item.id)}>Edit</span>
+                <span onClick={() => deleteItem(item.id)}>Delete</span>
+            </li>
+        )});
     return (
-        <ul>
-            {tastingList}
-        </ul>
-    )
+        <>
+            {list.length > 0
+                ? <ul>{tastingList}</ul>
+                : <h1>Create first tasting</h1>
+            }
+        </>
+    );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        tasting: state.tasting
-    }
-}
-
-export default connect(mapStateToProps, {deleteTasting, editTasting})(TastingList) ;
+export default TastingList;

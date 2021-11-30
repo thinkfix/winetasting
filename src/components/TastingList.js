@@ -1,23 +1,29 @@
 import React from "react";
+import {Button, List, Avatar} from "antd";
 
 const TastingList = (props) => {
 
     const {list, editItem, deleteItem} = props;
 
-    const tastingList = list.map((item) => {
-        return (
-            <li key={item.id}>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-
-                <span onClick={() => editItem(item.id)}>Edit</span>
-                <span onClick={() => deleteItem(item.id)}>Delete</span>
-            </li>
-        )});
     return (
         <>
             {list.length > 0
-                ? <ul>{tastingList}</ul>
+                ? <List
+                    itemLayout="horizontal"
+                    dataSource={list}
+                    renderItem={item => (
+                        <List.Item
+                            actions={[
+                                <Button onClick={() => editItem(item.id)}>Edit</Button>,
+                                <Button danger onClick={() => deleteItem(item.id)}>Delete</Button>
+                            ]}>
+                            <List.Item.Meta
+                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                title={<a href="https://ant.design">{item.title}</a>}
+                                description={<span>{item.description}</span>}
+                            />
+                        </List.Item>
+                    )}/>
                 : <h1>Create first tasting</h1>
             }
         </>

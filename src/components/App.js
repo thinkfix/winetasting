@@ -5,6 +5,7 @@ import TastingList from "./TastingList";
 import TastingForm from "./TastingForm";
 import {connect} from "react-redux";
 import {createTasting, editTasting, deleteTasting} from "../actions";
+import {Button} from "antd";
 
 
 const App = (props) => {
@@ -34,6 +35,7 @@ const App = (props) => {
 
     const editItemHandler = (id) => {
         let data = tasting.filter(item => item.id === id);
+        console.log('Line: 38', data);
         setFormData({...data[0], formTitle: 'Edit tasting'});
         setShowForm(true);
     }
@@ -45,7 +47,7 @@ const App = (props) => {
                 ? <TastingForm saveForm={saveFormHandler} formData={formData}/>
                 : <TastingList list={tasting} editItem={editItemHandler} deleteItem={id => props.deleteTasting(id)}/>
             }
-            <button onClick={() => setShowForm(!showForm)}>{!showForm ? 'Add tasting' : 'Hide form'}</button>
+            <Button block onClick={() => setShowForm(!showForm)}>{!showForm ? 'Add tasting' : 'Hide form'}</Button>
         </>
     );
 }

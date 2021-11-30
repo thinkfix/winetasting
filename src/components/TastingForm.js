@@ -1,4 +1,8 @@
 import React, {useEffect, useState} from "react";
+import { Form, Select, Input, Checkbox, Button } from "antd";
+import 'antd/dist/antd.css';
+
+// const {Option} = Select;
 
 const TastingForm = (props) => {
     const {saveForm, formData} = props;
@@ -9,7 +13,6 @@ const TastingForm = (props) => {
     }, [formData]);
 
     const submitTastingHandler = (e) => {
-        e.preventDefault();
         saveForm(formFields);
     }
 
@@ -24,29 +27,51 @@ const TastingForm = (props) => {
         })
     }
 
+    const children = [];
+
+    function handleChange(value) {
+        console.log(`selected ${value}`);
+    }
+
     return (
         <>
             <h2>{formFields.formTitle}</h2>
-            <form onSubmit={submitTastingHandler}>
-                <input type="text" name="id" value={formFields.id} onChange={inputChangeHandler}/>
-                <br/>
-                <label htmlFor="title">Title</label>
-                <input
-                    type="text"
-                    required
-                    name="title"
-                    value={formFields.title}
-                    onChange={inputChangeHandler}/>
-                <br/>
-                <label htmlFor="description">Description</label>
-                <input
-                    type="text"
-                    name="description"
-                    value={formFields.description}
-                    onChange={inputChangeHandler}/>
-                <br/>
-                <button type='submit'>Save</button>
-            </form>
+            <Form onFinish={submitTastingHandler}>
+                <input type="hidden" name="id" value={formFields.id} onChange={inputChangeHandler}/>
+                <Form.Item>
+                    <label htmlFor="title">Title</label>
+                    <Input
+                        type="text"
+                        rules={[{ required: true, message: 'Please input tasting title!' }]}
+                        name="title"
+                        value={formFields.title}
+                        onChange={inputChangeHandler}/>
+                </Form.Item>
+
+                <Form.Item>
+                    <label htmlFor="description">Description</label>
+                    <Input
+                        type="text"
+                        name="description"
+                        value={formFields.description}
+                        onChange={inputChangeHandler}/>
+                </Form.Item>
+
+                <Form.Item>
+                    <label htmlFor="wines">Wines</label>
+                    <Select mode="tags" name="wines" style={{ width: '100%' }} placeholder="Tags Mode" onChange={handleChange}>
+                        {children}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item>
+                    <Checkbox>Show names during tasting</Checkbox>
+                </Form.Item>
+
+                <Form.Item>
+                    <Button htmlType='submit'>Save</Button>
+                </Form.Item>
+            </Form>
         </>
     )
 }

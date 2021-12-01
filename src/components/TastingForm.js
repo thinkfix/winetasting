@@ -1,71 +1,56 @@
-import React, {useEffect, useState} from "react";
-import { Form, Select, Input, Checkbox, Button } from "antd";
-import 'antd/dist/antd.css';
-
-// const {Option} = Select;
+import React, {useEffect} from "react";
+import {Form, Input, Checkbox, Button} from "antd";
 
 const TastingForm = (props) => {
     const {saveForm, formData} = props;
-    const [formFields, setFormFields] = useState(formData);
+    const [form] = Form.useForm();
 
     useEffect(() => {
-        setFormFields(formData);
-    }, [formData]);
+        form.setFieldsValue(formData);
+    }, [formData, form]);
 
-    const submitTastingHandler = (e) => {
-        saveForm(formFields);
+    const onFinish = (values) => {
+        saveForm(values);
+        form.resetFields();
     }
-
-    const inputChangeHandler = (e) => {
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-
-        setFormFields({
-            ...formFields,
-            [name]: value
-        })
-    }
-
-    const children = [];
-
-    function handleChange(value) {
-        console.log(`selected ${value}`);
-    }
+    const onFinishFailed = (errorInfo) => {
+        console.error('Failed:', errorInfo);
+    };
 
     return (
         <>
-            <h2>{formFields.formTitle}</h2>
-            <Form onFinish={submitTastingHandler}>
-                <input type="hidden" name="id" value={formFields.id} onChange={inputChangeHandler}/>
-                <Form.Item>
-                    <label htmlFor="title">Title</label>
-                    <Input
-                        type="text"
-                        rules={[{ required: true, message: 'Please input tasting title!' }]}
-                        name="title"
-                        value={formFields.title}
-                        onChange={inputChangeHandler}/>
+            <h2>Tasting Form</h2>
+            <Form
+                form={form}
+                layout={"vertical"}
+                initialValues={{
+                    title: '',
+                    description: ''
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+            >
+                <Form.Item
+                    rules={[{required: true, message: 'Please input tasting title!'}]}
+                    label="Title"
+                    name="title"
+                >
+                    <Input/>
                 </Form.Item>
 
-                <Form.Item>
-                    <label htmlFor="description">Description</label>
-                    <Input
-                        type="text"
-                        name="description"
-                        value={formFields.description}
-                        onChange={inputChangeHandler}/>
+                <Form.Item
+                    label="Description"
+                    name="description"
+                >
+                    <Input/>
                 </Form.Item>
 
-                <Form.Item>
-                    <label htmlFor="wines">Wines</label>
-                    <Select mode="tags" name="wines" style={{ width: '100%' }} placeholder="Tags Mode" onChange={handleChange}>
-                        {children}
-                    </Select>
-                </Form.Item>
-
-                <Form.Item>
-                    <Checkbox>Show names during tasting</Checkbox>
+                <Form.Item
+                    label="Show names during tasting"
+                    name="open"
+                    valuePropName="checked"
+                >
+                    <Checkbox/>
                 </Form.Item>
 
                 <Form.Item>

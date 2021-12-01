@@ -1,19 +1,17 @@
-const tastingReducer = (state = [] ,action) => {
+const tastingReducer = (state = [], action) => {
     switch (action.type) {
         case 'CREATE_TASTING':
-            return [...state, action.payload];
+            return [...state, action.payload.data];
         case 'EDIT_TASTING':
-            console.log('Line: 6', state);
-            console.log('Line: 7', action.payloads);
-            return state.map(item => {
-                if (action.payload.id === item.id) {
-                    return action.payload
+            return state.map((item, index) => {
+                if (action.payload.index === index) {
+                    return action.payload.data
                 }
                 return item;
             })
         case 'DELETE_TASTING':
-            return state.filter((tasting) => {
-                return tasting.id !== action.payload.id
+            return state.filter((tasting, index) => {
+                return index !== action.payload.index
             })
         default:
             return state;

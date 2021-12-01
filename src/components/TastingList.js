@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, List, Avatar} from "antd";
+import {Button, List, Typography} from "antd";
 
 const TastingList = (props) => {
 
@@ -11,20 +11,22 @@ const TastingList = (props) => {
                 ? <List
                     itemLayout="horizontal"
                     dataSource={list}
-                    renderItem={item => (
+                    renderItem={(item, index) => (
                         <List.Item
                             actions={[
-                                <Button onClick={() => editItem(item.id)}>Edit</Button>,
-                                <Button danger onClick={() => deleteItem(item.id)}>Delete</Button>
+                                <Button onClick={() => editItem(index)}>Edit</Button>,
+                                <Button danger onClick={() => deleteItem(index)}>Delete</Button>
                             ]}>
                             <List.Item.Meta
-                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                 title={<a href="https://ant.design">{item.title}</a>}
                                 description={<span>{item.description}</span>}
                             />
                         </List.Item>
                     )}/>
-                : <h1>Create first tasting</h1>
+                : <Typography.Title
+                    type="secondary"
+                    italic="false"
+                >Create first tasting</Typography.Title>
             }
         </>
     );

@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 import tastingReducer from "./tastingReducer";
 
 export default combineReducers({

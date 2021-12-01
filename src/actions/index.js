@@ -1,69 +1,30 @@
-export const createTasting = (tasting) => {
+export const createTasting = (data) => {
     return {
         type: 'CREATE_TASTING',
-        payload: tasting
-    }
-}
-
-export const editTasting = (id) => {
-    return {
-        type: 'EDIT_TASTING',
-        payload: id
-    }
-}
-
-export const deleteTasting = (id) => {
-    return {
-        type: 'DELETE_TASTING',
         payload: {
-            id: id
+            data: data
         }
     }
 }
 
+export const editTasting = (data, currentEditIndex) => {
+    return {
+        type: 'EDIT_TASTING',
+        payload: {
+            data: data,
+            index: currentEditIndex
+        }
+    }
+}
 
-
-//
-// export const addWine = (wine) => {
-//     return {
-//         type: 'ADD_WINE',
-//         payload: wine
-//     }
-// }
-//
-// export const deleteWine = (wine) => {
-//     return {
-//         type: 'DELETE_WINE',
-//         payload: wine
-//     }
-// }
-//
-// export const updateWine = (wine) => {
-//     return {
-//         type: 'UPDATE_WINE',
-//         payload: wine
-//     }
-// }
-//
-// export const addResult = (result) => {
-//     return {
-//         type: 'ADD_RESULT',
-//         payload: result
-//     }
-// }
-// export const deleteResult = (result) => {
-//     return {
-//         type: 'DELETE_RESULT',
-//         payload: result
-//     }
-// }
-// export const updateResult = (result) => {
-//     return {
-//         type: 'UPDATE_RESULT',
-//         payload: result
-//     }
-// }
-
+export const deleteTasting = (index) => {
+    return {
+        type: 'DELETE_TASTING',
+        payload: {
+            index: index
+        }
+    }
+}
 
 
 
